@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Волжская экспедиция — перезагрузка через природу</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sand: #C8A97E;
+    --sand-light: #E8D5B7;
+    --graphite: #2A2A28;
+    --graphite-mid: #3D3D3A;
+    --green-dark: #1C2B1A;
+    --ember: #B5622A;
+    --smoke: #8A8A80;
+    --cream: #F4EFE6;
+    --fog: rgba(200,169,126,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--graphite);
+    color: var(--cream);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.5rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: linear-gradient(to bottom, rgba(42,42,40,0.95), transparent);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; letter-spacing: 0.2em;
+    color: var(--sand); text-transform: uppercase;
+  }
+  .nav-cta {
+    border: 1px solid var(--sand);
+    color: var(--sand); background: transparent;
+    padding: 0.6rem 1.8rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem; letter-spacing: 0.18em;
+    text-transform: uppercase; cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+  }
+  .nav-cta:hover { background: var(--sand); color: var(--graphite); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: var(--green-dark);
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 60%, rgba(181,98,42,0.18) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 30%, rgba(200,169,126,0.10) 0%, transparent 45%),
+      radial-gradient(ellipse at 50% 100%, rgba(28,43,26,0.9) 0%, transparent 60%);
+  }
+  .hero-water {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 35%;
+    background: linear-gradient(to top, rgba(28,43,26,0.95), transparent);
+  }
+  .hero-grain {
+    position: absolute; inset: 0; opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    background-size: 256px;
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    text-align: center; padding: 8rem 2rem 6rem;
+    max-width: 900px;
+  }
+  .hero-label {
+    display: inline-block;
+    font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--sand); margin-bottom: 2.5rem;
+    border-bottom: 1px solid rgba(200,169,126,0.4);
+    padding-bottom: 0.6rem;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    font-weight: 300; line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: var(--cream);
+  }
+  .hero-title em { font-style: italic; color: var(--sand); }
+  .hero-sub {
+    font-size: clamp(0.85rem, 1.5vw, 1rem);
+    line-height: 1.8; color: rgba(244,239,230,0.7);
+    max-width: 580px; margin: 0 auto 3rem;
+    font-weight: 300;
+  }
+  .hero-meta {
+    display: flex; gap: 3rem; justify-content: center;
+    margin-bottom: 3.5rem;
+    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--sand-light);
+  }
+  .hero-meta span { opacity: 0.8; }
+  .hero-btns {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--ember); color: var(--cream);
+    border: none; padding: 1rem 2.8rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.3s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-primary:hover { background: #C87035; transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent; color: var(--cream);
+    border: 1px solid rgba(244,239,230,0.3);
+    padding: 1rem 2.4rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.3s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--sand); color: var(--sand); }
+
+  .scroll-hint {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    opacity: 0.4; animation: bob 2s ease-in-out infinite;
+  }
+  .scroll-hint span { font-size: 0.55rem; letter-spacing: 0.25em; text-transform: uppercase; }
+  .scroll-line { width: 1px; height: 40px; background: var(--sand); }
+  @keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+  /* SECTIONS */
+  section { padding: 7rem 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--sand); margin-bottom: 1.2rem; display: block;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 300; line-height: 1.2; margin-bottom: 1.5rem;
+  }
+  .divider {
+    width: 50px; height: 1px; background: var(--sand);
+    margin: 2rem 0; opacity: 0.6;
+  }
+
+  /* ABOUT */
+  .about { background: var(--graphite); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
+  }
+  .about-text p {
+    font-size: 0.95rem; line-height: 2; color: rgba(244,239,230,0.75);
+    margin-bottom: 1.5rem;
+  }
+  .about-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-style: italic;
+    color: var(--sand); line-height: 1.5;
+    border-left: 2px solid var(--ember);
+    padding-left: 2rem; margin: 2rem 0;
+  }
+  .about-facts {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+  }
+  .fact {
+    padding: 1.8rem; border: 1px solid rgba(200,169,126,0.15);
+    transition: border-color 0.3s;
+  }
+  .fact:hover { border-color: rgba(200,169,126,0.4); }
+  .fact-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem; font-weight: 300; color: var(--sand);
+    line-height: 1;
+  }
+  .fact-label {
+    font-size: 0.7rem; letter-spacing: 0.15em;
+    color: rgba(244,239,230,0.5); margin-top: 0.3rem; text-transform: uppercase;
+  }
+
+  /* FOR WHOM */
+  .for-whom { background: var(--green-dark); }
+  .states-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .state-card {
+    padding: 2rem 1.5rem;
+    border-top: 1px solid rgba(200,169,126,0.25);
+    transition: all 0.3s;
+  }
+  .state-card:hover { border-top-color: var(--sand); }
+  .state-icon {
+    font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--ember); margin-bottom: 0.8rem; display: block;
+  }
+  .state-card p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; line-height: 1.4; color: var(--cream);
+  }
+
+  /* NOT FOR WHOM */
+  .not-for { background: var(--graphite); }
+  .not-for-inner {
+    max-width: 700px; margin: 0 auto; text-align: center;
+  }
+  .not-list {
+    list-style: none; margin: 3rem 0;
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+  .not-list li {
+    padding: 1.2rem 2rem;
+    border: 1px solid rgba(244,239,230,0.08);
+    font-size: 0.9rem; line-height: 1.7;
+    color: rgba(244,239,230,0.65);
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .not-list li::before {
+    content: '×';
+    color: var(--ember); font-size: 1.1rem; flex-shrink: 0;
+  }
+  .not-note {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-style: italic;
+    color: var(--sand); line-height: 1.6;
+  }
+
+  /* TRANSFORMATION TABLE */
+  .transform { background: var(--green-dark); }
+  .transform-table {
+    width: 100%; margin-top: 3rem;
+    border-collapse: collapse;
+  }
+  .transform-table th {
+    padding: 1rem 2rem; text-align: left;
+    font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--sand); border-bottom: 1px solid rgba(200,169,126,0.3);
+  }
+  .transform-table th.right { color: var(--ember); }
+  .transform-table td {
+    padding: 1.2rem 2rem;
+    font-size: 0.92rem; line-height: 1.6;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .transform-table td:first-child { color: rgba(244,239,230,0.5); }
+  .transform-table td:last-child { color: var(--cream); }
+  .transform-table tr:hover td { background: rgba(200,169,126,0.04); }
+
+  /* PROGRAM */
+  .program { background: var(--graphite); }
+  .days-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    margin-top: 3rem;
+  }
+  .day-block {
+    background: var(--graphite-mid);
+    padding: 2.5rem 2rem;
+    transition: background 0.3s;
+  }
+  .day-block:hover { background: rgba(61,61,58,0.9); }
+  .day-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem; font-weight: 300;
+    color: rgba(200,169,126,0.2); line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .day-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; color: var(--cream);
+    margin-bottom: 1.2rem;
+  }
+  .day-items { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .day-items li {
+    font-size: 0.8rem; color: rgba(244,239,230,0.6);
+    padding-left: 1rem; position: relative; line-height: 1.6;
+  }
+  .day-items li::before {
+    content: '—'; position: absolute; left: 0;
+    color: var(--sand); font-size: 0.7rem;
+  }
+
+  /* INCLUDED */
+  .included { background: var(--green-dark); }
+  .included-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .included-item {
+    text-align: center; padding: 2rem 1rem;
+    border: 1px solid rgba(200,169,126,0.12);
+    transition: all 0.3s;
+  }
+  .included-item:hover { border-color: var(--sand); transform: translateY(-3px); }
+  .incl-icon {
+    font-size: 1.5rem; margin-bottom: 1rem;
+    display: block;
+  }
+  .incl-label {
+    font-size: 0.75rem; color: rgba(244,239,230,0.7);
+    line-height: 1.5; letter-spacing: 0.05em;
+  }
+
+  /* CONDITIONS / EXCLUSIVITY */
+  .conditions { background: var(--graphite); }
+  .conditions-inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;
+  }
+  .cond-block h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem; font-weight: 300; margin-bottom: 1.5rem;
+  }
+  .cond-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+  .cond-list li {
+    font-size: 0.85rem; line-height: 1.7;
+    color: rgba(244,239,230,0.7);
+    padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex; gap: 1rem; align-items: flex-start;
+  }
+  .cond-list li::before {
+    content: '◆'; color: var(--sand); font-size: 0.5rem;
+    flex-shrink: 0; margin-top: 5px;
+  }
+  .price-block {
+    background: var(--graphite-mid);
+    padding: 2.5rem; margin-top: 2rem;
+  }
+  .price-label { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--smoke); }
+  .price-val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem; font-weight: 300; color: var(--sand);
+    margin: 0.3rem 0;
+  }
+  .price-note { font-size: 0.75rem; color: rgba(244,239,230,0.5); }
+  .excl-items { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 1.5rem; }
+  .excl-item {
+    padding: 1.5rem;
+    border-left: 2px solid var(--ember);
+  }
+  .excl-title { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sand); margin-bottom: 0.3rem; }
+  .excl-desc { font-size: 0.82rem; color: rgba(244,239,230,0.6); line-height: 1.6; }
+
+  /* ATMOSPHERE */
+  .atmosphere { background: var(--green-dark); padding: 5rem 2rem; }
+  .atmosphere-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .atm-item {
+    aspect-ratio: 2/3;
+    background: var(--graphite-mid);
+    display: flex; flex-direction: column;
+    justify-content: flex-end; padding: 1.5rem;
+    position: relative; overflow: hidden;
+    transition: transform 0.3s;
+    cursor: default;
+  }
+  .atm-item:hover { transform: scale(1.02); }
+  .atm-item:nth-child(2n) { margin-top: 2rem; }
+  .atm-gradient {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(28,43,26,0.95) 20%, transparent 70%);
+  }
+  .atm-word {
+    position: relative; z-index: 1;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; font-style: italic; color: var(--sand);
+  }
+  .atm-sub {
+    position: relative; z-index: 1;
+    font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(244,239,230,0.4); margin-top: 0.2rem;
+  }
+  .atm-bg {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    filter: brightness(0.35) saturate(0.7);
+  }
+
+  /* FORM */
+  .form-section {
+    background: var(--graphite-mid);
+    padding: 8rem 2rem;
+  }
+  .form-inner {
+    max-width: 700px; margin: 0 auto; text-align: center;
+  }
+  .form-inner .section-title { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 0.8rem; }
+  .form-inner .section-sub {
+    font-size: 0.9rem; color: rgba(244,239,230,0.6);
+    margin-bottom: 3rem; line-height: 1.8;
+  }
+  .form-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .form-full { grid-column: 1 / -1; }
+  input, select {
+    width: 100%; padding: 1rem 1.2rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(200,169,126,0.2);
+    color: var(--cream);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.82rem; outline: none;
+    transition: border-color 0.3s;
+  }
+  input::placeholder { color: rgba(244,239,230,0.35); }
+  input:focus { border-color: var(--sand); }
+  select { color: rgba(244,239,230,0.5); }
+  select option { background: var(--graphite); }
+  .submit-btn {
+    width: 100%; margin-top: 0.5rem;
+    padding: 1.2rem;
+    background: var(--ember); color: var(--cream);
+    border: none; cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.78rem; letter-spacing: 0.25em; text-transform: uppercase;
+    transition: all 0.3s;
+  }
+  .submit-btn:hover { background: #C87035; }
+  .form-note {
+    font-size: 0.7rem; color: rgba(244,239,230,0.35);
+    margin-top: 1.2rem; line-height: 1.6;
+  }
+  .success-msg {
+    display: none; padding: 2rem;
+    border: 1px solid rgba(200,169,126,0.3);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-style: italic; color: var(--sand);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--graphite);
+    padding: 3rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid rgba(200,169,126,0.1);
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem; letter-spacing: 0.2em;
+    color: var(--sand); text-transform: uppercase;
+  }
+  .footer-links { display: flex; gap: 2rem; }
+  .footer-links a {
+    font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(244,239,230,0.4); text-decoration: none;
+    transition: color 0.3s;
+  }
+  .footer-links a:hover { color: var(--sand); }
+
+  /* REVEAL ANIMATION */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .states-grid { grid-template-columns: 1fr 1fr; }
+    .days-grid { grid-template-columns: 1fr; gap: 2px; }
+    .included-grid { grid-template-columns: repeat(2, 1fr); }
+    .conditions-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .atmosphere-grid { grid-template-columns: repeat(2, 1fr); }
+    .form-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+    .hero-meta { flex-direction: column; gap: 0.8rem; }
+    .atm-item:nth-child(2n) { margin-top: 0; }
+  }
+  @media (max-width: 480px) {
+    .states-grid { grid-template-columns: 1fr; }
+    section { padding: 4rem 1.5rem; }
+    .atmosphere-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Волжская экспедиция</div>
+  <a href="#form" class="nav-cta">Оставить заявку</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-content">
+    <span class="hero-label">Астраханская область · 2025</span>
+    <h1 class="hero-title">
+      Волжская экспедиция<br>
+      <em>в мир полной перезагрузки</em>
+    </h1>
+    <p class="hero-sub">
+      Три дня вне городской цивилизации вернут энергию жизни,<br>
+      которую ежедневно забирает мегаполис
+    </p>
+    <div class="hero-meta">
+      <span>3 дня · 3 ночи</span>
+      <span>Волга · Астраханская область</span>
+      <span>До 12 участников</span>
+    </div>
+    <div class="hero-btns">
+      <a href="#form" class="btn-primary">Забронировать участие</a>
+      <a href="#program" class="btn-outline">Смотреть программу</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Листать</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <span class="section-label">О проекте</span>
+        <h2 class="section-title">Это не туризм.<br>Это возвращение к себе.</h2>
+        <div class="divider"></div>
+        <p>Каждый день мегаполис забирает что-то важное: тишину, сон, ощущение себя. Мы разработали экспедицию, где природа становится инструментом восстановления.</p>
+        <p>Три дня на Волге без гаджетов, уведомлений и городского шума. Только вода, огонь, небо и живое человеческое общение.</p>
+        <blockquote class="about-quote">
+          «Три дня вне цивилизации возвращают человеку внутренние силы»
+        </blockquote>
+      </div>
+      <div class="about-facts reveal">
+        <div class="fact">
+          <div class="fact-num">3</div>
+          <div class="fact-label">Дня полного digital detox</div>
+        </div>
+        <div class="fact">
+          <div class="fact-num">12</div>
+          <div class="fact-label">Максимум участников</div>
+        </div>
+        <div class="fact">
+          <div class="fact-num">∞</div>
+          <div class="fact-label">Километров воды и неба</div>
+        </div>
+        <div class="fact">
+          <div class="fact-num">0</div>
+          <div class="fact-label">Городского шума</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOR WHOM -->
+<section class="for-whom">
+  <div class="container">
+    <span class="section-label reveal">Для кого</span>
+    <h2 class="section-title reveal">Эта экспедиция для вас,<br>если вы узнаёте себя</h2>
+    <div class="states-grid">
+      <div class="state-card reveal">
+        <span class="state-icon">01</span>
+        <p>Просыпаетесь уставшим, даже после выходных</p>
+      </div>
+      <div class="state-card reveal">
+        <span class="state-icon">02</span>
+        <p>Первое, что делаете утром — берёте телефон</p>
+      </div>
+      <div class="state-card reveal">
+        <span class="state-icon">03</span>
+        <p>Давно не слышали настоящей тишины</p>
+      </div>
+      <div class="state-card reveal">
+        <span class="state-icon">04</span>
+        <p>Чувствуете эмоциональное выгорание и опустошённость</p>
+      </div>
+      <div class="state-card reveal">
+        <span class="state-icon">05</span>
+        <p>Устали от постоянной спешки и пробок</p>
+      </div>
+      <div class="state-card reveal">
+        <span class="state-icon">06</span>
+        <p>Хотите «выдохнуть» — по-настоящему, не в отеле</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NOT FOR WHOM -->
+<section class="not-for">
+  <div class="container">
+    <div class="not-for-inner reveal">
+      <span class="section-label">Честно о формате</span>
+      <h2 class="section-title">Кому не подойдёт</h2>
+      <div class="divider" style="margin: 2rem auto;"></div>
+      <ul class="not-list">
+        <li>Тем, кто ищет luxury-сервис и пятизвёздочный комфорт</li>
+        <li>Тем, кто не готов обходиться без телефона и интернета</li>
+        <li>Тем, кто хочет all inclusive с анимацией у бассейна</li>
+        <li>Тем, кто не любит физическую активность на природе</li>
+      </ul>
+      <p class="not-note">
+        Отсутствие глянца — это и есть наша главная ценность.<br>
+        Настоящее не бывает пластиковым.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSFORMATION -->
+<section class="transform">
+  <div class="container">
+    <span class="section-label reveal">Результат</span>
+    <h2 class="section-title reveal">Что изменится за 3 дня</h2>
+    <table class="transform-table reveal">
+      <thead>
+        <tr>
+          <th>До экспедиции</th>
+          <th class="right">После экспедиции</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Хронический стресс и тревога</td><td>Внутреннее спокойствие</td></tr>
+        <tr><td>Плохой, поверхностный сон</td><td>Глубокий восстанавливающий сон</td></tr>
+        <tr><td>Зависимость от телефона и уведомлений</td><td>Спокойствие без гаджетов</td></tr>
+        <tr><td>Эмоциональное выгорание</td><td>Возвращение внутренней энергии</td></tr>
+        <tr><td>Ощущение пустоты и усталости</td><td>Наполненность и ясность</td></tr>
+        <tr><td>Отсутствие живого общения</td><td>Настоящие разговоры у костра</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- PROGRAM -->
+<section class="program" id="program">
+  <div class="container">
+    <span class="section-label reveal">Программа</span>
+    <h2 class="section-title reveal">Три дня на Волге</h2>
+    <div class="days-grid reveal">
+      <div class="day-block">
+        <div class="day-num">01</div>
+        <div class="day-title">Прибытие. Первый выдох.</div>
+        <ul class="day-items">
+          <li>Трансфер и заезд на базу</li>
+          <li>Знакомство у костра</li>
+          <li>Первый ужин из котелка</li>
+          <li>Звёздное небо — без городских огней</li>
+          <li>Погружение в тишину</li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <div class="day-num">02</div>
+        <div class="day-title">Экспедиция. Природа. Жизнь.</div>
+        <ul class="day-items">
+          <li>Рассвет на Волге</li>
+          <li>Выход на лодках к лотосовым полям</li>
+          <li>Рыбалка и приготовление ухи</li>
+          <li>Соревнования и мастер-классы</li>
+          <li>Баня и вечер у реки</li>
+          <li>Закат над водой</li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <div class="day-num">03</div>
+        <div class="day-title">Завершение. Возвращение с энергией.</div>
+        <ul class="day-items">
+          <li>Последнее утро на природе</li>
+          <li>Рыбалка на рассвете</li>
+          <li>Торжественные призы и сертификаты</li>
+          <li>Финальный костёр</li>
+          <li>Отъезд обновлёнными</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INCLUDED -->
+<section class="included">
+  <div class="container">
+    <span class="section-label reveal">Что включено</span>
+    <h2 class="section-title reveal">Всё необходимое для перезагрузки</h2>
+    <div class="included-grid reveal">
+      <div class="included-item">
+        <span class="incl-icon">🏕</span>
+        <div class="incl-label">Проживание в природных условиях</div>
+      </div>
+      <div class="included-item">
+        <span class="incl-icon">🍲</span>
+        <div class="incl-label">Питание — уха, еда на огне</div>
+      </div>
+      <div class="included-item">
+        <span class="incl-icon">🚤</span>
+        <div class="incl-label">Лодки и водная программа</div>
+      </div>
+      <div class="included-item">
+        <span class="incl-icon">🎯</span>
+        <div class="incl-label">Мастер-классы и активности</div>
+      </div>
+      <div class="included-item">
+        <span class="incl-icon">🚐</span>
+        <div class="incl-label">Трансферы внутри программы</div>
+      </div>
+      <div class="included-item">
+        <span class="incl-icon">🏆</span>
+        <div class="incl-label">Призы и сертификаты участника</div>
+      </div>
+      <div class="included-item">
+        <span class="incl-icon">👤</span>
+        <div class="incl-label">Профессиональное сопровождение</div>
+      </div>
+      <div class="included-item">
+        <span class="incl-icon">🔥</span>
+        <div class="incl-label">Баня на природе</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONDITIONS + EXCLUSIVITY -->
+<section class="conditions">
+  <div class="container">
+    <div class="conditions-inner">
+      <div class="cond-block reveal">
+        <span class="section-label">Условия участия</span>
+        <h3>Как принять участие</h3>
+        <ul class="cond-list">
+          <li>Ограниченное количество мест — не более 12 участников</li>
+          <li>Бронирование по предоплате после подтверждения заявки</li>
+          <li>Договор-оферта предоставляется каждому участнику</li>
+          <li>Дедлайн бронирования — за 14 дней до старта</li>
+          <li>Оплата: перевод на карту или по реквизитам</li>
+        </ul>
+        <div class="price-block">
+          <div class="price-label">Стоимость участия</div>
+          <div class="price-val">по запросу</div>
+          <div class="price-note">Точная стоимость — при подтверждении заявки.<br>Оставьте контакты — свяжемся в течение часа.</div>
+        </div>
+      </div>
+      <div class="cond-block reveal">
+        <span class="section-label">Эксклюзивность</span>
+        <h3>Почему это особенный формат</h3>
+        <div class="excl-items">
+          <div class="excl-item">
+            <div class="excl-title">Камерность</div>
+            <div class="excl-desc">До 12 человек. Не лагерь. Не фестиваль. Живое общение, а не толпа.</div>
+          </div>
+          <div class="excl-item">
+            <div class="excl-title">Ручная организация</div>
+            <div class="excl-desc">Каждая экспедиция готовится индивидуально. Без шаблонов и конвейера.</div>
+          </div>
+          <div class="excl-item">
+            <div class="excl-title">Закрытый формат</div>
+            <div class="excl-desc">Проект не рекламируется массово. Только те, кто нашёл нас — готовы к настоящему.</div>
+          </div>
+          <div class="excl-item">
+            <div class="excl-title">Без глянца</div>
+            <div class="excl-desc">Природа, огонь, вода. Настоящее — без Instagram-декораций.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ATMOSPHERE -->
+<section class="atmosphere">
+  <div class="container">
+    <span class="section-label reveal">Атмосфера</span>
+    <h2 class="section-title reveal">Образы экспедиции</h2>
+    <div class="atmosphere-grid reveal">
+      <div class="atm-item" style="background: linear-gradient(135deg, #1a2e20, #0d1a10);">
+        <div class="atm-gradient"></div>
+        <div class="atm-word">Туман</div>
+        <div class="atm-sub">Над Волгой на рассвете</div>
+      </div>
+      <div class="atm-item" style="background: linear-gradient(135deg, #2a1a0a, #1a0d05);">
+        <div class="atm-gradient"></div>
+        <div class="atm-word">Костёр</div>
+        <div class="atm-sub">Ночью у реки</div>
+      </div>
+      <div class="atm-item" style="background: linear-gradient(135deg, #0a1a2a, #05101a);">
+        <div class="atm-gradient"></div>
+        <div class="atm-word">Звёзды</div>
+        <div class="atm-sub">Без городских огней</div>
+      </div>
+      <div class="atm-item" style="background: linear-gradient(135deg, #1a2015, #0d150a);">
+        <div class="atm-gradient"></div>
+        <div class="atm-word">Тишина</div>
+        <div class="atm-sub">Настоящая</div>
+      </div>
+      <div class="atm-item" style="background: linear-gradient(135deg, #251a0a, #150f05);">
+        <div class="atm-gradient"></div>
+        <div class="atm-word">Закат</div>
+        <div class="atm-sub">На воде</div>
+      </div>
+    </div>
+    <p style="text-align:center; margin-top:2rem; font-size:0.7rem; color:rgba(244,239,230,0.3); letter-spacing:0.15em;">
+      * Заказчик предоставляет фотографии для замены блоков-заглушек
+    </p>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="form-section" id="form">
+  <div class="form-inner">
+    <span class="section-label">Заявка</span>
+    <h2 class="section-title reveal">Получить подробную программу</h2>
+    <p class="section-sub reveal">
+      Оставьте контакты — мы свяжемся в течение часа,<br>
+      расскажем детали и подтвердим бронирование
+    </p>
+    <form id="appForm" action="https://formspree.io/f/REPLACE_WITH_YOUR_ID" method="POST">
+      <div class="form-grid reveal">
+        <input type="text" name="name" placeholder="Ваше имя" required>
+        <input type="tel" name="phone" placeholder="Телефон" required>
+        <input type="text" name="telegram" placeholder="Telegram (например @username)">
+        <input type="text" name="city" placeholder="Ваш город">
+        <div class="form-full">
+          <button type="submit" class="submit-btn">Получить подробную программу →</button>
+        </div>
+      </div>
+    </form>
+    <div class="success-msg" id="successMsg">
+      Заявка принята. Мы свяжемся с вами в ближайшее время.
+    </div>
+    <p class="form-note">
+      Нажимая кнопку, вы соглашаетесь на обработку персональных данных.<br>
+      Мы не передаём информацию третьим лицам.
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Волжская экспедиция</div>
+  <div class="footer-links">
+    <a href="https://t.me/Can2178" target="_blank">Telegram</a>
+    <a href="#form">Оставить заявку</a>
+    <a href="#program">Программа</a>
+  </div>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Form
+  const form = document.getElementById('appForm');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST', body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        form.style.display = 'none';
+        document.getElementById('successMsg').style.display = 'block';
+      }
+    } catch(err) {
+      alert('Ошибка отправки. Напишите нам в Telegram: @Can2178');
+    }
+  });
+</script>
+</body>
+</html>
